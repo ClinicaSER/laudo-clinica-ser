@@ -6,6 +6,8 @@
 <title>Laudo Técnico de Microscopia de Luz Polarizada</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
     --green-deep:#173C2E;
@@ -603,29 +605,34 @@
 
   .toolbar{
     max-width:210mm;
-    margin:10mm auto 0 auto;
+    margin:8mm auto 14mm auto;
     display:flex;
-    justify-content:flex-end;
+    justify-content:center;
     padding:0 4mm;
   }
   .pdf-btn{
     display:flex;
     align-items:center;
-    gap:7px;
+    gap:9px;
     font-family:'Outfit',sans-serif;
-    font-size:12px;
+    font-size:13px;
     font-weight:600;
     letter-spacing:0.3px;
     color:#fff;
-    background:var(--green-deep);
+    background:#25D366;
     border:none;
     border-radius:999px;
-    padding:9px 18px;
+    padding:12px 26px;
     cursor:pointer;
-    box-shadow:0 4px 14px rgba(23,60,46,0.25);
+    box-shadow:0 4px 14px rgba(37,211,102,0.35);
   }
   .pdf-btn:hover{
-    background:var(--green-mid);
+    background:#1EBE5A;
+  }
+  .pdf-btn:disabled{
+    background:#9AA39D;
+    box-shadow:none;
+    cursor:default;
   }
 
   @media screen and (max-width: 700px){
@@ -634,15 +641,15 @@
     }
     .toolbar{
       max-width:100%;
-      margin:4mm auto;
+      margin:4mm auto 6mm auto;
       padding:0 4mm;
       justify-content:center;
     }
     .pdf-btn{
       width:100%;
       justify-content:center;
-      padding:12px 18px;
-      font-size:13px;
+      padding:13px 18px;
+      font-size:13.5px;
     }
     .page{
       width:100%;
@@ -700,17 +707,141 @@
       margin-top:16px;
     }
   }
+
+  /* Forced print layout — guarantees the A4 desktop layout even when
+     printing/exporting to PDF from a mobile browser, overriding any
+     mobile screen adjustments that some mobile print engines may
+     otherwise carry over. */
+  @media print{
+    .page{
+      width:210mm !important;
+      min-height:297mm !important;
+      max-width:210mm !important;
+      padding:9mm 14mm 10mm 14mm !important;
+      margin:0 !important;
+      box-shadow:none !important;
+    }
+    .ring-motif{
+      display:block !important;
+    }
+    header.top img{
+      width:56px !important;
+      height:56px !important;
+    }
+    h1.main-title{
+      font-size:20px !important;
+    }
+    .clinic-tag{
+      font-size:11px !important;
+    }
+    .patient-info{
+      grid-template-columns:1.6fr 0.8fr 1.1fr !important;
+      gap:14px !important;
+    }
+    .criteria-grid{
+      grid-template-columns:1fr 1fr !important;
+    }
+    .bottom-row{
+      flex-direction:row !important;
+    }
+    .left-column{
+      width:46% !important;
+    }
+    .right-column{
+      width:auto !important;
+    }
+    .signature-card{
+      flex:1 !important;
+    }
+    .editable-box.conclusion{
+      min-height:0 !important;
+    }
+    .images-grid{
+      flex-wrap:nowrap !important;
+    }
+    .image-slot{
+      max-width:none !important;
+      flex:1 !important;
+    }
+    footer.bottom{
+      position:absolute !important;
+      left:14mm !important;
+      right:14mm !important;
+      bottom:8mm !important;
+      margin-top:0 !important;
+    }
+    .toolbar{
+      display:none !important;
+    }
+  }
+
+  /* Same forced desktop layout, applied via a JS-toggled class right
+     before capturing the page as an image for the PDF/share flow —
+     guarantees the generated PDF always matches the A4 desktop layout,
+     even when triggered from a narrow mobile screen. */
+  body.pdf-render .page{
+    width:210mm !important;
+    min-height:297mm !important;
+    max-width:210mm !important;
+    padding:9mm 14mm 10mm 14mm !important;
+    margin:0 !important;
+    box-shadow:none !important;
+  }
+  body.pdf-render .ring-motif{
+    display:block !important;
+  }
+  body.pdf-render header.top img{
+    width:56px !important;
+    height:56px !important;
+  }
+  body.pdf-render h1.main-title{
+    font-size:20px !important;
+  }
+  body.pdf-render .clinic-tag{
+    font-size:11px !important;
+  }
+  body.pdf-render .patient-info{
+    grid-template-columns:1.6fr 0.8fr 1.1fr !important;
+    gap:14px !important;
+  }
+  body.pdf-render .criteria-grid{
+    grid-template-columns:1fr 1fr !important;
+  }
+  body.pdf-render .bottom-row{
+    flex-direction:row !important;
+  }
+  body.pdf-render .left-column{
+    width:46% !important;
+  }
+  body.pdf-render .right-column{
+    width:auto !important;
+  }
+  body.pdf-render .signature-card{
+    flex:1 !important;
+  }
+  body.pdf-render .editable-box.conclusion{
+    min-height:0 !important;
+  }
+  body.pdf-render .images-grid{
+    flex-wrap:nowrap !important;
+  }
+  body.pdf-render .image-slot{
+    max-width:none !important;
+    flex:1 !important;
+  }
+  body.pdf-render footer.bottom{
+    position:absolute !important;
+    left:14mm !important;
+    right:14mm !important;
+    bottom:8mm !important;
+    margin-top:0 !important;
+  }
+  body.pdf-render .toolbar{
+    display:none !important;
+  }
 </style>
 </head>
 <body>
-  <div class="toolbar no-print">
-    <button type="button" id="generatePdfBtn" class="pdf-btn">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Gerar PDF Colorido
-    </button>
-  </div>
   <div class="page">
     <div class="ring-motif"></div>
 
@@ -872,6 +1003,16 @@
     </footer>
   </div>
 
+  <div class="toolbar no-print">
+    <button type="button" id="generatePdfBtn" class="pdf-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.444h.005c9.816 0 15.926-11.767 9.999-19.94a11.94 11.94 0 00-1.529-1.402zM12.05 21.786h-.004a9.933 9.933 0 01-5.06-1.387l-.363-.216-3.759.981 1.003-3.652-.236-.375a9.926 9.926 0 01-1.522-5.284c.003-5.485 4.464-9.947 9.955-9.947 2.66 0 5.157 1.036 7.032 2.917a9.876 9.876 0 012.916 7.036c-.003 5.486-4.464 9.947-9.962 9.947z"/>
+      </svg>
+      <span class="pdf-btn-label">Compartilhar no Whatsapp</span>
+    </button>
+  </div>
+
   <div class="cropper-overlay" id="cropperOverlay">
     <div class="cropper-modal">
       <p class="cropper-title">Ajustar imagem</p>
@@ -891,8 +1032,62 @@
   </div>
 
 <script>
-  document.getElementById('generatePdfBtn').addEventListener('click', function(){
-    window.print();
+  document.getElementById('generatePdfBtn').addEventListener('click', async function(){
+    var btn = this;
+    var label = btn.querySelector('.pdf-btn-label');
+    var originalLabel = label.textContent;
+
+    btn.disabled = true;
+    label.textContent = 'Gerando PDF...';
+    document.body.classList.add('pdf-render');
+
+    // wait two frames so the forced desktop layout fully reflows before capture
+    await new Promise(function(resolve){
+      requestAnimationFrame(function(){ requestAnimationFrame(resolve); });
+    });
+
+    try {
+      var pageEl = document.querySelector('.page');
+      var canvas = await html2canvas(pageEl, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      });
+
+      var imgData = canvas.toDataURL('image/jpeg', 0.95);
+      var jsPDFCtor = window.jspdf.jsPDF;
+      var pdf = new jsPDFCtor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+      var pdfBlob = pdf.output('blob');
+      var fileName = 'laudo-microscopia-capilar.pdf';
+      var file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Laudo Técnico de Microscopia de Luz Polarizada'
+        });
+      } else {
+        var url = URL.createObjectURL(pdfBlob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        alert('Seu navegador não permite compartilhar diretamente. O PDF foi baixado — é só anexar no WhatsApp manualmente.');
+      }
+    } catch (err) {
+      if (err && err.name !== 'AbortError') {
+        console.error(err);
+        alert('Não foi possível gerar o PDF. Tente novamente.');
+      }
+    } finally {
+      document.body.classList.remove('pdf-render');
+      btn.disabled = false;
+      label.textContent = originalLabel;
+    }
   });
 
   (function(){
