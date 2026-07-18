@@ -1687,6 +1687,16 @@
     border-radius:999px;
     border:none;
     cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+  .settings-btn.save{
+    background:var(--green-deep);
+    color:#fff;
+  }
+  .settings-btn.save:hover{
+    background:#0D6259;
   }
   .settings-btn.reset{
     background:var(--gray-fill);
@@ -2513,7 +2523,8 @@
     box-sizing:border-box;
     border-bottom:1px solid #F1F5F9;
   }
-  .time-slot-label.hour{border-bottom:1px solid var(--gray-border);}
+  .time-slot-label.hour{border-bottom:1px solid var(--gray-border);font-weight:700;color:var(--ink);}
+  .time-slot-label:not(.hour){font-size:10px;color:#B0B8C1;}
   .time-body{
     position:relative;
     flex:1;
@@ -2772,6 +2783,212 @@
     .app-main{padding-top:20px;}
     .shell-header{align-items:flex-start;margin-top:6px;}
   }
+  /* ==================== Laudo de Microscopia ==================== */
+  .laudo-section{margin-bottom:26px;}
+  .laudo-section-label{
+    font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--green-deep);
+    font-weight:700;margin:0 0 14px 0;
+  }
+  .criteria-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .criterion{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:12px 16px;border-radius:12px;border:1px solid var(--gray-border);background:#fff;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .criterion.active{background:var(--sage-fill);border-color:var(--sage-border);}
+  .criterion .name{font-size:13px;font-weight:700;color:var(--ink);}
+  .criterion .sub{font-size:10.5px;color:var(--gray-text);font-weight:500;margin-top:1px;}
+  .toggle-btn{
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.3px;
+    padding:6px 14px;border-radius:999px;border:none;cursor:pointer;flex-shrink:0;
+    background:var(--gray-fill);color:var(--gray-text);
+  }
+  .criterion.active .toggle-btn{background:var(--green-deep);color:#fff;}
+
+  .laudo-images-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  .laudo-image-slot{
+    position:relative;
+    aspect-ratio:9/16;
+    border-radius:14px;
+    border:1.6px dashed var(--gray-border);
+    background:var(--gray-fill);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;overflow:hidden;
+  }
+  .laudo-image-slot input{display:none;}
+  .laudo-image-placeholder{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--gray-text);}
+  .laudo-image-placeholder .plus-icon{font-size:22px;font-weight:300;line-height:1;}
+  .laudo-image-placeholder .placeholder-text{font-size:10.5px;font-weight:600;text-align:center;padding:0 8px;}
+  .laudo-image-preview{display:none;width:100%;height:100%;object-fit:cover;}
+  .laudo-image-slot.filled .laudo-image-placeholder{display:none;}
+  .laudo-image-slot.filled .laudo-image-preview{display:block;}
+  .laudo-image-slot.filled{border-style:solid;border-color:var(--sage-border);}
+  .laudo-remove-btn{
+    display:none;position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;
+    background:rgba(15,23,42,0.65);color:#fff;align-items:center;justify-content:center;font-size:14px;
+    cursor:pointer;z-index:2;
+  }
+  .laudo-image-slot.filled .laudo-remove-btn{display:flex;}
+
+  .laudo-conclusao{
+    width:100%;box-sizing:border-box;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);
+    border:1px solid var(--gray-border);border-radius:12px;padding:14px 16px;min-height:110px;resize:vertical;
+    line-height:1.6;
+  }
+  .laudo-conclusao:focus{outline:none;border-color:var(--green-deep);}
+  .laudo-char-counter{
+    font-size:11px;color:var(--gray-text);font-weight:500;text-align:right;margin:5px 2px 0 0;
+  }
+  .laudo-char-counter.near-limit{color:var(--gold);}
+  .laudo-char-counter.at-limit{color:var(--error);font-weight:700;}
+
+  .laudo-signature-row{display:flex;flex-direction:column;align-items:flex-start;margin-top:8px;}
+
+  @media screen and (max-width:900px){
+    .criteria-grid{grid-template-columns:1fr;}
+    .laudo-images-grid{grid-template-columns:1fr 1fr;}
+  }
+  /* ==================== Laudo PDF — original visual style (isolated from the app's teal design system) ==================== */
+  .laudo-pdf-sheet{
+    font-family:'Outfit',sans-serif;
+    color:#1D2621;
+    position:relative;
+  }
+  .laudo-pdf-sheet .lp-ring{
+    position:absolute;top:-70px;right:-70px;width:260px;height:260px;border-radius:50%;
+    border:26px solid #E7F1EA;z-index:0;
+  }
+  .laudo-pdf-sheet .lp-ring::after{
+    content:"";position:absolute;top:60px;left:-40px;width:170px;height:170px;border-radius:50%;
+    border:16px solid #F6F6F5;
+  }
+  .laudo-pdf-sheet .lp-header{
+    position:relative;z-index:1;display:flex;align-items:center;gap:18px;
+    padding-bottom:10px;border-bottom:2px solid #173C2E;margin-bottom:18px;
+  }
+  .laudo-pdf-sheet .lp-header img{width:56px;height:56px;object-fit:contain;flex-shrink:0;}
+  .laudo-pdf-sheet .lp-eyebrow{
+    font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;
+    color:#B08D57;font-weight:600;margin:0 0 3px 0;
+  }
+  .laudo-pdf-sheet .lp-title{
+    font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.3px;
+    color:#173C2E;margin:0;line-height:1.2;
+  }
+  .laudo-pdf-sheet .lp-clinic{font-size:11px;color:#6B776F;margin-top:4px;font-weight:500;}
+  .laudo-pdf-sheet .lp-patient{
+    position:relative;z-index:1;display:grid;grid-template-columns:1.6fr 0.8fr 1.1fr;gap:14px;margin-bottom:20px;
+  }
+  .laudo-pdf-sheet .lp-field label{
+    font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;
+    color:#245C46;font-weight:600;margin-bottom:4px;display:block;
+  }
+  .laudo-pdf-sheet .lp-field .val{
+    border-bottom:1.4px solid #2E6E54;padding:4px 2px;font-size:13.5px;font-family:'Outfit',sans-serif;
+    color:#1D2621;font-weight:600;min-height:22px;
+  }
+  .laudo-pdf-sheet .lp-section-label{
+    font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;
+    color:#173C2E;font-weight:700;margin:0 0 10px 0;display:flex;align-items:center;gap:8px;
+  }
+  .laudo-pdf-sheet .lp-section-label::after{content:"";flex:1;height:1px;background:#BFDACB;}
+  .laudo-pdf-sheet .lp-criteria-wrap{position:relative;z-index:1;margin-bottom:20px;}
+  .laudo-pdf-sheet .lp-criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
+  .laudo-pdf-sheet .lp-criterion{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 14px;
+    border-radius:10px;border:1px solid #E4E3E0;background:#F6F6F5;
+  }
+  .laudo-pdf-sheet .lp-criterion.active{background:#E7F1EA;border-color:#BFDACB;}
+  .laudo-pdf-sheet .lp-crit-name{font-size:12.5px;font-weight:600;color:#1D2621;}
+  .laudo-pdf-sheet .lp-crit-sub{font-size:9.5px;color:#7C877F;font-weight:500;}
+  .laudo-pdf-sheet .lp-toggle{
+    font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.6px;
+    border-radius:999px;padding:5px 13px;min-width:52px;text-align:center;color:#fff;
+    background:#9AA39D;flex-shrink:0;display:inline-block;
+  }
+  .laudo-pdf-sheet .lp-criterion.active .lp-toggle{background:#245C46;}
+  .laudo-pdf-sheet .lp-images-wrap{position:relative;z-index:1;margin-bottom:20px;}
+  .laudo-pdf-sheet .lp-images-grid{display:flex;gap:16px;}
+  .laudo-pdf-sheet .lp-image-slot{
+    flex:1;aspect-ratio:9/16;border-radius:10px;overflow:hidden;border:1px solid #E4E3E0;background:#FBFBFA;
+  }
+  .laudo-pdf-sheet .lp-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .laudo-pdf-sheet .lp-bottom-row{position:relative;z-index:1;display:flex;gap:16px;align-items:stretch;}
+  .laudo-pdf-sheet .lp-right-col{flex:1;display:flex;flex-direction:column;gap:8px;order:1;}
+  .laudo-pdf-sheet .lp-conclusion-box{
+    background:#E7F1EA;border:1px solid #BFDACB;border-radius:10px;padding:12px 14px;
+    font-size:12.5px;line-height:1.7;color:#1D2621;white-space:pre-wrap;flex:1;
+    max-height:150px;overflow:hidden;
+  }
+  .laudo-pdf-sheet .lp-left-col{width:46%;display:flex;flex-direction:column;gap:8px;order:2;}
+  .laudo-pdf-sheet .lp-signature-card{
+    width:100%;flex:1;border:1px solid #E4E3E0;border-radius:10px;background:#fff;
+    padding:9px 12px 8px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  }
+  .laudo-pdf-sheet .lp-sig-capture{position:relative;width:100%;display:flex;align-items:flex-start;justify-content:center;padding:2px 0 0 0;}
+  .laudo-pdf-sheet .lp-sig-bracket{
+    position:relative;border-left:2px solid #5B4FE8;border-top:2px solid #5B4FE8;border-bottom:2px solid #5B4FE8;
+    border-radius:8px 0 0 8px;padding:3px 8px 3px 8px;display:flex;flex-direction:column;align-items:center;
+  }
+  .laudo-pdf-sheet .lp-sig-label{font-size:7.5px;font-weight:600;letter-spacing:0.4px;color:#1D2621;align-self:flex-end;margin-bottom:-3px;}
+  .laudo-pdf-sheet .lp-sig-img{height:20px;width:auto;max-width:100%;display:block;margin:2px 0;}
+  .laudo-pdf-sheet .lp-sig-hash{font-size:6.8px;letter-spacing:0.3px;color:#9AA39D;align-self:flex-start;}
+  .laudo-pdf-sheet .lp-sig-divider{width:88%;height:1.5px;background:#1D2621;margin:5px 0;}
+  .laudo-pdf-sheet .lp-sig-name{font-size:11.5px;font-weight:700;color:#173C2E;margin:0 0 1px 0;line-height:1.25;}
+  .laudo-pdf-sheet .lp-sig-title{font-size:8px;color:#6B776F;font-weight:500;margin:0 0 1px 0;line-height:1.25;}
+  .laudo-pdf-sheet .lp-sig-specialty{font-size:8px;color:#6B776F;font-weight:500;margin:0 0 2px 0;line-height:1.25;}
+  .laudo-pdf-sheet .lp-sig-ids{font-size:7.5px;color:#8B958F;font-weight:500;margin:0;line-height:1.25;}
+  .laudo-pdf-sheet .lp-assoc-strip{
+    width:100%;display:flex;align-items:center;justify-content:center;padding:6px 8px;
+    border:1px solid #E4E3E0;border-radius:10px;background:#fff;
+  }
+  .laudo-pdf-sheet .lp-assoc-logos{width:90%;height:auto;display:block;opacity:0.9;}
+  .laudo-pdf-sheet .lp-footer{
+    position:relative;z-index:1;margin-top:16px;padding-top:8px;border-top:1px solid #BFDACB;
+    font-size:9px;letter-spacing:0.6px;color:#173C2E;text-align:center;font-weight:600;
+  }
+
+  /* Laudo cropper modal (edit view — zoom & reposition images) */
+  .laudo-cropper-overlay{
+    display:none;position:fixed;inset:0;background:rgba(23,38,33,0.55);z-index:220;
+    align-items:center;justify-content:center;
+  }
+  .laudo-cropper-overlay.open{display:flex;}
+  .laudo-cropper-modal{
+    background:#fff;border-radius:14px;padding:18px 20px 20px 20px;display:flex;flex-direction:column;
+    align-items:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  }
+  .laudo-cropper-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--green-deep);margin:0 0 12px 0;}
+  .laudo-cropper-frame{
+    width:230px;height:409px;max-width:70vw;max-height:55vh;aspect-ratio:9/16;overflow:hidden;
+    border-radius:10px;border:2px solid var(--green-deep);position:relative;background:#111;cursor:grab;touch-action:none;
+  }
+  .laudo-cropper-frame:active{cursor:grabbing;}
+  .laudo-cropper-frame img{
+    position:absolute;top:0;left:0;max-width:none;max-height:none;user-select:none;
+    -webkit-user-drag:none;pointer-events:none;
+  }
+  .laudo-cropper-controls{display:flex;align-items:center;gap:10px;width:100%;margin-top:14px;}
+  .laudo-zoom-label{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;color:var(--green-mid);letter-spacing:0.4px;}
+  .laudo-cropper-controls input[type="range"]{flex:1;accent-color:var(--green-mid);}
+  .laudo-cropper-hint{font-family:'Inter',sans-serif;font-size:9.5px;color:var(--gray-text);margin:8px 0 0 0;}
+  .laudo-cropper-actions{display:flex;gap:10px;margin-top:14px;width:100%;}
+  .laudo-cropper-btn{
+    flex:1;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:0.3px;
+    padding:9px 0;border-radius:999px;border:none;cursor:pointer;
+  }
+  .laudo-cropper-btn.cancel{background:var(--gray-fill);color:var(--gray-text);}
+  .laudo-cropper-btn.cancel:hover{background:var(--gray-border);}
+  .laudo-cropper-btn.apply{background:var(--green-deep);color:#fff;}
+  .laudo-cropper-btn.apply:hover{background:#0D6259;}
 </style>
 </head>
 <body>
@@ -2838,6 +3055,14 @@
       <div class="sidebar-nav-item" id="navReceituarioBtn" style="cursor:pointer;" tabindex="0" role="button">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 2v6L4 18a2 2 0 002 3h12a2 2 0 002-3l-5-10V2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 2h10M6 14h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         Receituário Manipulados
+      </div>
+      <div class="sidebar-nav-item" id="navLaudoBtn" style="cursor:pointer;" tabindex="0" role="button">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6M9 13a2 2 0 104 0 2 2 0 00-4 0zM7.5 18c.5-1.8 2-3 4.5-3s4 1.2 4.5 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Laudo
+        <span class="expand-arrow" id="laudoExpandArrow">&#9656;</span>
+      </div>
+      <div class="sidebar-submenu" id="laudoSubmenu" style="display:none;">
+        <div class="sidebar-subitem" id="navLaudarMicroscopiaBtn" tabindex="0" role="button">Laudar Microscopia</div>
       </div>
       <div class="sidebar-nav-item disabled" title="Módulo ainda não disponível">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="var(--info)" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="7" r="4" stroke="var(--info)" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="var(--info)" stroke-width="2" stroke-linecap="round"/></svg>
@@ -3294,6 +3519,151 @@
     </div>
   </div>
 
+  <!-- LAUDO DE MICROSCOPIA VIEW -->
+  <div id="laudoView" style="display:none;">
+    <div class="shell-header">
+        <img src="data:image/png;base64,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" alt="Logo Clínica Ser">
+      <div>
+        <h1>Laudar Microscopia</h1>
+        <p>Laudo Técnico de Microscopia de Luz Polarizada</p>
+      </div>
+    </div>
+    <div class="page" style="padding:0;box-shadow:none;border:none;">
+    <div class="patient-info">
+      <div class="field"><label>Nome do Paciente</label><div class="fillable" id="laudoNome" contenteditable="true" data-placeholder="Digite o nome completo"></div></div>
+      <div class="field"><label>Idade</label><div class="fillable" id="laudoIdade" contenteditable="true" data-placeholder="—"></div></div>
+      <div class="field"><label>Data da Avaliação</label><div class="fillable" id="laudoData" contenteditable="true" data-placeholder="__ / __ / ____"></div></div>
+    </div>
+    <div class="laudo-section">
+      <p class="laudo-section-label">Critérios Avaliados</p>
+      <div class="criteria-grid" id="laudoCriteriaGrid">
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Ácido Lático</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Parasitas e Ácaros</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Bulbo Cinza</div><div class="sub">Falta de vitaminas</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Bulbos Atrofiados</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Esqualeno</div><div class="sub">Má qualidade de sono</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Deficiência de Estrona</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Incidência Digestiva</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Trauma Folicular</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Incidência Psicofísica</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Excesso de Oleosidade</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+        <div class="criterion" data-state="nao">
+          <div><div class="name">Incidência Intestinal</div></div>
+          <button type="button" class="toggle-btn">NÃO</button>
+        </div>
+        <div class="criterion active" data-state="sim">
+          <div><div class="name">Perda de Massa</div></div>
+          <button type="button" class="toggle-btn">SIM</button>
+        </div>
+      </div>
+    </div>
+    <div class="laudo-section">
+      <p class="laudo-section-label">Imagens Registradas</p>
+      <div class="laudo-images-grid">
+        <label class="laudo-image-slot" id="laudoImgSlot1">
+          <input type="file" accept="image/*" id="laudoImgInput1">
+          <div class="laudo-image-placeholder"><span class="plus-icon">+</span><span class="placeholder-text">Adicionar imagem</span></div>
+          <img class="laudo-image-preview" id="laudoImgPreview1" alt="Imagem registrada 1">
+          <span class="laudo-remove-btn" id="laudoImgRemove1">&times;</span>
+        </label>
+        <label class="laudo-image-slot" id="laudoImgSlot2">
+          <input type="file" accept="image/*" id="laudoImgInput2">
+          <div class="laudo-image-placeholder"><span class="plus-icon">+</span><span class="placeholder-text">Adicionar imagem</span></div>
+          <img class="laudo-image-preview" id="laudoImgPreview2" alt="Imagem registrada 2">
+          <span class="laudo-remove-btn" id="laudoImgRemove2">&times;</span>
+        </label>
+        <label class="laudo-image-slot" id="laudoImgSlot3">
+          <input type="file" accept="image/*" id="laudoImgInput3">
+          <div class="laudo-image-placeholder"><span class="plus-icon">+</span><span class="placeholder-text">Adicionar imagem</span></div>
+          <img class="laudo-image-preview" id="laudoImgPreview3" alt="Imagem registrada 3">
+          <span class="laudo-remove-btn" id="laudoImgRemove3">&times;</span>
+        </label>
+        <label class="laudo-image-slot" id="laudoImgSlot4">
+          <input type="file" accept="image/*" id="laudoImgInput4">
+          <div class="laudo-image-placeholder"><span class="plus-icon">+</span><span class="placeholder-text">Adicionar imagem</span></div>
+          <img class="laudo-image-preview" id="laudoImgPreview4" alt="Imagem registrada 4">
+          <span class="laudo-remove-btn" id="laudoImgRemove4">&times;</span>
+        </label>
+      </div>
+    </div>
+    <div class="laudo-section">
+      <p class="laudo-section-label">Conclusão Técnica</p>
+      <textarea class="laudo-conclusao" id="laudoConclusao" maxlength="350" placeholder="Descreva aqui a conclusão técnica do laudo..."></textarea>
+      <p class="laudo-char-counter" id="laudoCharCounter">0 / 350 caracteres</p>
+    </div>
+    <div class="laudo-signature-row" style="display:none;">
+      <div class="signature-card">
+        <div class="sig-capture"><div class="sig-bracket">
+          <span class="sig-label">Assinado por:</span>
+          <img class="sig-img" id="laudoSigImg" alt="Assinatura">
+          <span class="sig-hash" id="laudoSigHash"></span>
+        </div></div>
+        <div class="sig-divider"></div>
+        <p class="sig-name" id="laudoSigName"></p>
+        <p class="sig-title" id="laudoSigTitle"></p>
+        <p class="sig-specialty" id="laudoSigSpecialty"></p>
+        <p class="sig-ids" id="laudoSigIds"></p>
+      </div>
+      <div class="assoc-strip"><img class="assoc-logos" id="laudoAssocLogos" alt="Associações de Tricologia"></div>
+    </div>
+    </div>
+    <div class="share-toolbar no-print" style="position:static;margin-top:24px;background:none;">
+      <span class="share-summary" id="laudoShareSummary">Revise os dados antes de compartilhar</span>
+      <button type="button" class="share-btn" id="laudoShareBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.444h.005c9.816 0 15.926-11.767 9.999-19.94a11.94 11.94 0 00-1.529-1.402zM12.05 21.786h-.004a9.933 9.933 0 01-5.06-1.387l-.363-.216-3.759.981 1.003-3.652-.236-.375a9.926 9.926 0 01-1.522-5.284c.003-5.485 4.464-9.947 9.955-9.947 2.66 0 5.157 1.036 7.032 2.917a9.876 9.876 0 012.916 7.036c-.003 5.486-4.464 9.947-9.962 9.947z"/></svg>
+        <span id="laudoShareLabel">Compartilhar no Whatsapp</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="laudo-cropper-overlay" id="laudoCropperOverlay">
+    <div class="laudo-cropper-modal">
+      <p class="laudo-cropper-title">Ajustar imagem</p>
+      <div class="laudo-cropper-frame" id="laudoCropperFrame">
+        <img id="laudoCropperImg" draggable="false" alt="Ajustar posição da imagem">
+      </div>
+      <div class="laudo-cropper-controls">
+        <span class="laudo-zoom-label">Zoom</span>
+        <input type="range" id="laudoCropperZoom" min="1" max="3" step="0.01" value="1">
+      </div>
+      <p class="laudo-cropper-hint">Arraste a imagem para posicionar</p>
+      <div class="laudo-cropper-actions">
+        <button type="button" class="laudo-cropper-btn cancel" id="laudoCropperCancel">Cancelar</button>
+        <button type="button" class="laudo-cropper-btn apply" id="laudoCropperApply">Aplicar corte</button>
+      </div>
+    </div>
+  </div>
+
   <!-- BLOQUEIOS VIEW -->
   <div id="bloqueiosView" style="display:none;">
     <div class="shell-header">
@@ -3440,6 +3810,10 @@
         </div>
 
         <div class="settings-actions">
+          <button type="button" class="settings-btn save" id="sigSaveBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Salvar Alterações
+          </button>
           <button type="button" class="settings-btn reset" id="sigResetBtn">Restaurar padrão</button>
         </div>
       </div>
@@ -4145,6 +4519,7 @@
     document.getElementById('catalogView').style.display = name === 'catalog' ? 'block' : 'none';
     document.getElementById('editorView').style.display = name === 'editor' ? 'block' : 'none';
     document.getElementById('settingsView').style.display = name === 'settings' ? 'block' : 'none';
+    document.getElementById('laudoView').style.display = name === 'laudo' ? 'block' : 'none';
     var receituarioViews = (name === 'mode' || name === 'catalog' || name === 'editor');
     var agendaViews = (name === 'agenda' || name === 'bloqueios');
     document.getElementById('topBar').style.display = (name === 'catalog' || name === 'editor') ? 'block' : 'none';
@@ -4152,14 +4527,17 @@
     var navDashboard = document.getElementById('navDashboardBtn');
     var navAgenda = document.getElementById('navAgendaBtn');
     var navReceituario = document.getElementById('navReceituarioBtn');
+    var navLaudo = document.getElementById('navLaudoBtn');
     navDashboard.classList.toggle('active', name === 'dashboard');
     navAgenda.classList.toggle('active', agendaViews);
     navReceituario.classList.toggle('active', receituarioViews);
+    navLaudo.classList.toggle('active', name === 'laudo');
     if(name !== 'settings'){
       document.getElementById('navAssinaturaBtn').classList.remove('active');
     }
     document.getElementById('navCalendarioBtn').classList.toggle('active', name === 'agenda');
     document.getElementById('navBloqueiosBtn').classList.toggle('active', name === 'bloqueios');
+    document.getElementById('navLaudarMicroscopiaBtn').classList.toggle('active', name === 'laudo');
     closeMobileSidebar();
     window.scrollTo(0,0);
   }
@@ -4262,6 +4640,12 @@
     showToast('Assinatura restaurada ao padrão');
   });
 
+  document.getElementById('sigSaveBtn').addEventListener('click', function(){
+    renderSignaturePreview();
+    if(typeof renderLaudoSignature === 'function') renderLaudoSignature();
+    showToast('Assinatura salva! Todos os documentos gerados a partir de agora vão usar esses dados.');
+  });
+
   document.getElementById('navConfigBtn').addEventListener('click', function(){
     var submenu = document.getElementById('configSubmenu');
     var arrow = document.getElementById('configExpandArrow');
@@ -4327,6 +4711,33 @@
     if(e.key === 'Enter' || e.key === ' '){
       e.preventDefault();
       openBloqueiosView();
+    }
+  });
+
+  document.getElementById('navLaudoBtn').addEventListener('click', function(){
+    var submenu = document.getElementById('laudoSubmenu');
+    var arrow = document.getElementById('laudoExpandArrow');
+    var isOpen = submenu.style.display === 'flex';
+    submenu.style.display = isOpen ? 'none' : 'flex';
+    arrow.classList.toggle('open', !isOpen);
+  });
+  document.getElementById('navLaudoBtn').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      document.getElementById('navLaudoBtn').click();
+    }
+  });
+  function openLaudarMicroscopiaView(){
+    showView('laudo');
+    document.getElementById('laudoSubmenu').style.display = 'flex';
+    document.getElementById('laudoExpandArrow').classList.add('open');
+    if(typeof renderLaudoSignature === 'function') renderLaudoSignature();
+  }
+  document.getElementById('navLaudarMicroscopiaBtn').addEventListener('click', openLaudarMicroscopiaView);
+  document.getElementById('navLaudarMicroscopiaBtn').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      openLaudarMicroscopiaView();
     }
   });
 
@@ -5213,19 +5624,26 @@
     for(var h = 8; h <= 20; h++){
       var label = document.createElement('div');
       label.className = 'time-slot-label hour';
-      label.style.height = (60 * pxPerMinute) + 'px';
+      label.style.height = (30 * pxPerMinute) + 'px';
       label.textContent = pad2(h) + ':00';
       timeCol.appendChild(label);
+      if(h < 20){
+        var halfLabel = document.createElement('div');
+        halfLabel.className = 'time-slot-label';
+        halfLabel.style.height = (30 * pxPerMinute) + 'px';
+        halfLabel.textContent = pad2(h) + ':30';
+        timeCol.appendChild(halfLabel);
+      }
     }
 
     var totalMinutes = (20 - 8) * 60;
     timeBody.style.height = (totalMinutes * pxPerMinute) + 'px';
     timeBody.style.position = 'relative';
 
-    for(var m = 0; m < totalMinutes; m += 15){
+    for(var m = 0; m < totalMinutes; m += 30){
       var line = document.createElement('div');
-      line.className = 'time-row-line' + ((m % 60 === 45) ? ' hour' : '');
-      line.style.height = (15 * pxPerMinute) + 'px';
+      line.className = 'time-row-line' + ((m % 60 === 30) ? ' hour' : '');
+      line.style.height = (30 * pxPerMinute) + 'px';
       timeBody.appendChild(line);
     }
 
@@ -5297,7 +5715,7 @@
         var deltaY = e2.clientY - startY;
         if(Math.abs(deltaY) > 4) dragged = true;
         var newTop = origTop + deltaY;
-        newTop = Math.round(newTop / 15) * 15;
+        newTop = Math.round(newTop / 30) * 30;
         newTop = Math.max(0, Math.min(newTop, totalMinutes - duration));
         block.style.top = newTop + 'px';
         var newStartMin = 8 * 60 + newTop;
@@ -5650,7 +6068,7 @@
   }
   function fillMinuteSelect(selectEl, selectedMinute){
     selectEl.innerHTML = '';
-    [0, 15, 30, 45].forEach(function(m){
+    [0, 30].forEach(function(m){
       var opt = document.createElement('option');
       opt.value = pad2(m);
       opt.textContent = pad2(m);
@@ -5662,7 +6080,7 @@
   function buildHoraOptions(selectEl, selectedTime){
     selectEl.innerHTML = '';
     for(var h = 8; h < 20; h++){
-      ['00','15','30','45'].forEach(function(mm){
+      ['00','30'].forEach(function(mm){
         var val = pad2(h) + ':' + mm;
         var opt = document.createElement('option');
         opt.value = val;
@@ -5743,7 +6161,7 @@
         horaSelect.disabled = false;
         horaSelect.innerHTML = '';
         for(var h = 8; h < 20; h++){
-          ['00','15','30','45'].forEach(function(mm){
+          ['00','30'].forEach(function(mm){
             var opt = document.createElement('option');
             opt.value = pad2(h) + ':' + mm;
             opt.textContent = pad2(h) + ':' + mm;
@@ -6054,13 +6472,311 @@
     var offsetY = e.clientY - rect.top;
     var isMobile = window.innerWidth <= 700;
     var pxPerMinute = isMobile ? 2.2 : 1;
-    var minutesFromStart = Math.round((offsetY / pxPerMinute) / 15) * 15;
+    var minutesFromStart = Math.round((offsetY / pxPerMinute) / 30) * 30;
     var totalMinutes = 8 * 60 + Math.max(0, minutesFromStart);
     var hour = Math.floor(totalMinutes / 60);
     var minute = totalMinutes % 60;
     if(hour >= 20) return;
     var timeStr = pad2(hour) + ':' + pad2(minute);
     openCreateModal('agendamento', timeStr);
+  });
+
+  // ==================== Laudo de Microscopia ====================
+  document.querySelectorAll('#laudoCriteriaGrid .criterion').forEach(function(el){
+    el.querySelector('.toggle-btn').addEventListener('click', function(){
+      var isActive = el.classList.toggle('active');
+      el.dataset.state = isActive ? 'sim' : 'nao';
+      el.querySelector('.toggle-btn').textContent = isActive ? 'SIM' : 'NÃO';
+    });
+  });
+
+  var laudoCropState = { slot:null, preview:null, input:null, zoom:1, panX:0, panY:0,
+                          naturalW:0, naturalH:0, baseScale:1, dragging:false,
+                          startX:0, startY:0, startPanX:0, startPanY:0 };
+  var laudoCropOverlay = document.getElementById('laudoCropperOverlay');
+  var laudoCropFrame = document.getElementById('laudoCropperFrame');
+  var laudoCropImg = document.getElementById('laudoCropperImg');
+  var laudoCropZoom = document.getElementById('laudoCropperZoom');
+
+  function renderLaudoCrop(){
+    var frameW = laudoCropFrame.clientWidth, frameH = laudoCropFrame.clientHeight;
+    var dispW = laudoCropState.naturalW * laudoCropState.baseScale * laudoCropState.zoom;
+    var dispH = laudoCropState.naturalH * laudoCropState.baseScale * laudoCropState.zoom;
+    var left = (frameW - dispW) / 2 + laudoCropState.panX;
+    var top = (frameH - dispH) / 2 + laudoCropState.panY;
+    laudoCropImg.style.width = dispW + 'px';
+    laudoCropImg.style.height = dispH + 'px';
+    laudoCropImg.style.left = left + 'px';
+    laudoCropImg.style.top = top + 'px';
+  }
+
+  function openLaudoCropper(n, src){
+    laudoCropState.slot = n;
+    laudoCropState.preview = document.getElementById('laudoImgPreview' + n);
+    laudoCropState.input = document.getElementById('laudoImgInput' + n);
+    laudoCropState.zoom = 1;
+    laudoCropState.panX = 0;
+    laudoCropState.panY = 0;
+    laudoCropZoom.value = 1;
+    laudoCropImg.onload = function(){
+      laudoCropState.naturalW = laudoCropImg.naturalWidth;
+      laudoCropState.naturalH = laudoCropImg.naturalHeight;
+      var frameW = laudoCropFrame.clientWidth, frameH = laudoCropFrame.clientHeight;
+      laudoCropState.baseScale = Math.max(frameW / laudoCropState.naturalW, frameH / laudoCropState.naturalH);
+      renderLaudoCrop();
+    };
+    laudoCropImg.src = src;
+    laudoCropOverlay.classList.add('open');
+  }
+  function closeLaudoCropper(){
+    laudoCropOverlay.classList.remove('open');
+    var slotEl = document.getElementById('laudoImgSlot' + laudoCropState.slot);
+    if(laudoCropState.input && slotEl && !slotEl.classList.contains('filled')){
+      laudoCropState.input.value = '';
+    }
+  }
+
+  laudoCropFrame.addEventListener('pointerdown', function(e){
+    laudoCropState.dragging = true;
+    laudoCropState.startX = e.clientX;
+    laudoCropState.startY = e.clientY;
+    laudoCropState.startPanX = laudoCropState.panX;
+    laudoCropState.startPanY = laudoCropState.panY;
+    laudoCropFrame.setPointerCapture(e.pointerId);
+  });
+  laudoCropFrame.addEventListener('pointermove', function(e){
+    if(!laudoCropState.dragging) return;
+    laudoCropState.panX = laudoCropState.startPanX + (e.clientX - laudoCropState.startX);
+    laudoCropState.panY = laudoCropState.startPanY + (e.clientY - laudoCropState.startY);
+    renderLaudoCrop();
+  });
+  laudoCropFrame.addEventListener('pointerup', function(){ laudoCropState.dragging = false; });
+  laudoCropFrame.addEventListener('pointercancel', function(){ laudoCropState.dragging = false; });
+  laudoCropZoom.addEventListener('input', function(){
+    laudoCropState.zoom = parseFloat(laudoCropZoom.value);
+    renderLaudoCrop();
+  });
+  document.getElementById('laudoCropperCancel').addEventListener('click', closeLaudoCropper);
+  document.getElementById('laudoCropperApply').addEventListener('click', function(){
+    var frameW = laudoCropFrame.clientWidth, frameH = laudoCropFrame.clientHeight;
+    var outScale = 3;
+    var canvas = document.createElement('canvas');
+    canvas.width = frameW * outScale;
+    canvas.height = frameH * outScale;
+    var ctx = canvas.getContext('2d');
+    var dispW = laudoCropState.naturalW * laudoCropState.baseScale * laudoCropState.zoom;
+    var dispH = laudoCropState.naturalH * laudoCropState.baseScale * laudoCropState.zoom;
+    var left = (frameW - dispW) / 2 + laudoCropState.panX;
+    var top = (frameH - dispH) / 2 + laudoCropState.panY;
+    ctx.drawImage(laudoCropImg, left * outScale, top * outScale, dispW * outScale, dispH * outScale);
+    var dataURL = canvas.toDataURL('image/jpeg', 0.92);
+    laudoCropState.preview.src = dataURL;
+    document.getElementById('laudoImgSlot' + laudoCropState.slot).classList.add('filled');
+    laudoCropOverlay.classList.remove('open');
+  });
+
+  for(var li = 1; li <= 4; li++){
+    (function(idx){
+      var slot = document.getElementById('laudoImgSlot' + idx);
+      var input = document.getElementById('laudoImgInput' + idx);
+      var removeBtn = document.getElementById('laudoImgRemove' + idx);
+      input.addEventListener('change', function(e){
+        var file = e.target.files[0];
+        if(!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          openLaudoCropper(idx, ev.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
+      removeBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        input.value = '';
+        document.getElementById('laudoImgPreview' + idx).src = '';
+        slot.classList.remove('filled');
+      });
+    })(li);
+  }
+
+  function renderLaudoSignature(){
+    document.getElementById('laudoSigImg').src = SIGNATURE_CONFIG.imageDataUrl;
+    document.getElementById('laudoSigHash').textContent = SIGNATURE_CONFIG.hash;
+    document.getElementById('laudoSigName').textContent = SIGNATURE_CONFIG.name;
+    document.getElementById('laudoSigTitle').textContent = SIGNATURE_CONFIG.title;
+    document.getElementById('laudoSigSpecialty').textContent = SIGNATURE_CONFIG.specialty;
+    document.getElementById('laudoSigIds').textContent = 'SBPP ' + SIGNATURE_CONFIG.sbpp + ' | CPF: ' + SIGNATURE_CONFIG.cpf;
+    document.getElementById('laudoAssocLogos').src = 'data:image/png;base64,' + ASSOC_B64;
+  }
+  renderLaudoSignature();
+
+  document.getElementById('laudoConclusao').addEventListener('input', function(){
+    var max = 420;
+    var len = this.value.length;
+    var counter = document.getElementById('laudoCharCounter');
+    counter.textContent = len + ' / ' + max + ' caracteres';
+    counter.classList.toggle('near-limit', len >= max * 0.85 && len < max);
+    counter.classList.toggle('at-limit', len >= max);
+  });
+
+  function buildLaudoPdfSheet(){
+    var sheet = document.getElementById('pdfSheet');
+    var anyLogoImg = document.querySelector('header.top img, .shell-header img');
+    var logoSrc = anyLogoImg ? anyLogoImg.getAttribute('src') : '';
+
+    var nome = document.getElementById('laudoNome').textContent.trim();
+    var idade = document.getElementById('laudoIdade').textContent.trim();
+    var dataVal = document.getElementById('laudoData').textContent.trim();
+    var conclusao = document.getElementById('laudoConclusao').value.trim();
+
+    var html = '<div class="laudo-pdf-sheet">';
+    html += '<div class="lp-ring"></div>';
+
+    html += '<div class="lp-header">' +
+      '<img src="' + logoSrc + '" alt="Logo Clínica Ser">' +
+      '<div class="titles">' +
+        '<p class="lp-eyebrow">Relatório Clínico Capilar</p>' +
+        '<h1 class="lp-title">LAUDO TÉCNICO DE MICROSCOPIA<br>DE LUZ POLARIZADA</h1>' +
+        '<p class="lp-clinic">Clínica Ser — Tratamentos Capilares</p>' +
+      '</div>' +
+    '</div>';
+
+    html += '<div class="lp-patient">' +
+      '<div class="lp-field"><label>Nome do Paciente</label><div class="val">' + escapeHtml(nome || '—') + '</div></div>' +
+      '<div class="lp-field"><label>Idade</label><div class="val">' + escapeHtml(idade || '—') + '</div></div>' +
+      '<div class="lp-field"><label>Data da Avaliação</label><div class="val">' + escapeHtml(dataVal || '—') + '</div></div>' +
+    '</div>';
+
+    var criteriaHtml = Array.prototype.map.call(document.querySelectorAll('#laudoCriteriaGrid .criterion'), function(el){
+      var name = el.querySelector('.name').textContent;
+      var subEl = el.querySelector('.sub');
+      var sub = subEl ? subEl.textContent : '';
+      var active = el.classList.contains('active');
+      return '<div class="lp-criterion' + (active ? ' active' : '') + '">' +
+        '<div><div class="lp-crit-name">' + escapeHtml(name) + '</div>' + (sub ? '<div class="lp-crit-sub">' + escapeHtml(sub) + '</div>' : '') + '</div>' +
+        '<span class="lp-toggle">' + (active ? 'SIM' : 'NÃO') + '</span>' +
+      '</div>';
+    }).join('');
+
+    html += '<div class="lp-criteria-wrap">' +
+      '<p class="lp-section-label">Critérios Avaliados</p>' +
+      '<div class="lp-criteria-grid">' + criteriaHtml + '</div>' +
+    '</div>';
+
+    var imgsHtml = '';
+    for(var i = 1; i <= 4; i++){
+      var prev = document.getElementById('laudoImgPreview' + i);
+      if(prev && prev.src && prev.src.indexOf('data:') === 0){
+        imgsHtml += '<div class="lp-image-slot"><img src="' + prev.src + '" alt="Imagem registrada ' + i + '"></div>';
+      }
+    }
+    if(imgsHtml){
+      html += '<div class="lp-images-wrap">' +
+        '<p class="lp-section-label">Imagens Registradas</p>' +
+        '<div class="lp-images-grid">' + imgsHtml + '</div>' +
+      '</div>';
+    }
+
+    html += '<div class="lp-bottom-row">' +
+      '<div class="lp-left-col">' +
+        '<div class="lp-signature-card">' +
+          '<div class="lp-sig-capture"><div class="lp-sig-bracket">' +
+            '<span class="lp-sig-label">Assinado por:</span>' +
+            '<img class="lp-sig-img" src="' + SIGNATURE_CONFIG.imageDataUrl + '" alt="Assinatura">' +
+            '<span class="lp-sig-hash">' + escapeHtml(SIGNATURE_CONFIG.hash) + '</span>' +
+          '</div></div>' +
+          '<div class="lp-sig-divider"></div>' +
+          '<p class="lp-sig-name">' + escapeHtml(SIGNATURE_CONFIG.name) + '</p>' +
+          '<p class="lp-sig-title">' + escapeHtml(SIGNATURE_CONFIG.title) + '</p>' +
+          '<p class="lp-sig-specialty">' + escapeHtml(SIGNATURE_CONFIG.specialty) + '</p>' +
+          '<p class="lp-sig-ids">SBPP ' + escapeHtml(SIGNATURE_CONFIG.sbpp) + ' &nbsp;|&nbsp; CPF: ' + escapeHtml(SIGNATURE_CONFIG.cpf) + '</p>' +
+        '</div>' +
+        '<div class="lp-assoc-strip"><img class="lp-assoc-logos" src="data:image/png;base64,' + ASSOC_B64 + '" alt="Associações de Tricologia"></div>' +
+      '</div>' +
+      '<div class="lp-right-col">' +
+        '<p class="lp-section-label">Conclusão Técnica</p>' +
+        '<div class="lp-conclusion-box">' + (escapeHtml(conclusao) || '<span style="color:#9AA39D;font-style:italic;">Nenhuma conclusão registrada.</span>') + '</div>' +
+      '</div>' +
+    '</div>';
+
+    html += '<p class="lp-footer">Clínica Ser - Tratamentos Capilares &nbsp;|&nbsp; Cerquilho e Tatuí &nbsp;|&nbsp; Contato (15) 99645-1742</p>';
+
+    html += '</div>';
+    sheet.innerHTML = html;
+  }
+
+  document.getElementById('laudoShareBtn').addEventListener('click', async function(){
+    var btn = document.getElementById('laudoShareBtn');
+    var label = document.getElementById('laudoShareLabel');
+    var originalLabel = label.textContent;
+
+    var isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    var waTab = null;
+    if(!isMobileDevice){
+      waTab = window.open('about:blank', '_blank');
+    }
+
+    btn.disabled = true;
+    label.textContent = 'Gerando PDF...';
+
+    buildLaudoPdfSheet();
+
+    await new Promise(function(resolve){
+      requestAnimationFrame(function(){ requestAnimationFrame(resolve); });
+    });
+
+    try {
+      if(document.fonts && document.fonts.ready){ await document.fonts.ready; }
+      var sheetEl = document.getElementById('pdfSheet');
+      var canvas = await html2canvas(sheetEl, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+
+      var imgData = canvas.toDataURL('image/jpeg', 0.95);
+      var jsPDFCtor = window.jspdf.jsPDF;
+      var pdf = new jsPDFCtor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      var imgWidth = 210;
+      var pageHeight = 297;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var position = 0;
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      while(heightLeft > 0){
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      var pdfBlob = pdf.output('blob');
+      var fileName = 'laudo-microscopia.pdf';
+      var file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      if(isMobileDevice && navigator.canShare && navigator.canShare({ files: [file] })){
+        if(waTab) waTab.close();
+        await navigator.share({ files: [file], title: 'Laudo de Microscopia' });
+      } else {
+        var url = URL.createObjectURL(pdfBlob);
+        var a = document.createElement('a');
+        a.href = url; a.download = fileName;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        var nome = document.getElementById('laudoNome').textContent.trim();
+        var waText = 'Laudo de Microscopia' + (nome ? ' - ' + nome : '') + '. Segue o PDF em anexo.';
+        var waUrl = 'https://web.whatsapp.com/send?text=' + encodeURIComponent(waText);
+        if(waTab){ waTab.location.href = waUrl; } else { window.open(waUrl, '_blank'); }
+        showToast('PDF baixado. Anexe o arquivo na conversa do WhatsApp que abrimos.');
+      }
+    } catch(err){
+      if(waTab) waTab.close();
+      if(err && err.name !== 'AbortError'){
+        console.error(err);
+        showToast('Não foi possível gerar o PDF. Tente novamente.');
+      }
+    } finally {
+      btn.disabled = false;
+      label.textContent = originalLabel;
+    }
   });
 
   showView('dashboard');
