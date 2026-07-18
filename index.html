@@ -2745,15 +2745,21 @@
     .agenda-date-label{min-width:0;font-size:15px;}
     .agenda-view-tabs{display:none;}
     .agenda-date-nav{justify-content:space-between;}
-    .time-col{width:56px;}
-    .time-slot-label{font-size:12px;padding:6px 8px 0 0;}
-    .appt-block{padding:8px 12px;border-radius:10px;}
-    .appt-time{font-size:11.5px;}
+    .time-col{width:46px;}
+    .time-slot-label{font-size:11px;padding:6px 4px 0 0;}
+    .appt-block{left:4px;right:4px;padding:8px 10px;border-radius:10px;}
+    .appt-time{font-size:11px;}
     .appt-name{font-size:14px;}
     .appt-proc{font-size:12px;}
     .agenda-prof-head{padding:16px 18px;}
     .agenda-prof-head-name{font-size:14.5px;}
-    .agenda-grid-wrap{border-radius:14px;}
+    .agenda-grid-wrap{
+      border-radius:0;
+      border-left:none;
+      border-right:none;
+      margin:0 -10px;
+      width:calc(100% + 20px);
+    }
     .prof-item:has(.prof-check:not(:checked)){display:none;}
     .agenda-drawer{width:100%;max-width:100%;}
     .agenda-drawer-close{
@@ -2763,6 +2769,8 @@
       width:34px;
       height:34px;
     }
+    .app-main{padding-top:20px;}
+    .shell-header{align-items:flex-start;margin-top:6px;}
   }
 </style>
 </head>
@@ -5200,7 +5208,7 @@
     timeBody.innerHTML = '';
 
     var isMobile = window.innerWidth <= 700;
-    var pxPerMinute = isMobile ? 1.7 : 1;
+    var pxPerMinute = isMobile ? 2.2 : 1;
 
     for(var h = 8; h <= 20; h++){
       var label = document.createElement('div');
@@ -5226,7 +5234,7 @@
       var startMin = parseInt(appt.start.split(':')[0], 10) * 60 + parseInt(appt.start.split(':')[1], 10);
       var endMin = parseInt(appt.end.split(':')[0], 10) * 60 + parseInt(appt.end.split(':')[1], 10);
       var top = (startMin - 8 * 60) * pxPerMinute;
-      var height = Math.max((endMin - startMin) * pxPerMinute, isMobile ? 34 : 20);
+      var height = Math.max((endMin - startMin) * pxPerMinute, isMobile ? 64 : 20);
 
       var block = document.createElement('div');
       block.className = 'appt-block' + (appt.blocked ? ' blocked' : (appt.status === 'cancelado' ? ' cancelado' : ''));
@@ -6045,7 +6053,7 @@
     var rect = this.getBoundingClientRect();
     var offsetY = e.clientY - rect.top;
     var isMobile = window.innerWidth <= 700;
-    var pxPerMinute = isMobile ? 1.7 : 1;
+    var pxPerMinute = isMobile ? 2.2 : 1;
     var minutesFromStart = Math.round((offsetY / pxPerMinute) / 15) * 15;
     var totalMinutes = 8 * 60 + Math.max(0, minutesFromStart);
     var hour = Math.floor(totalMinutes / 60);
